@@ -10,6 +10,7 @@
         <?php
             $greeting = "Hello";
             echo $greeting . " World!";
+            echo $greeting . "Bug";
             echo $greeting . " Gabriel";
         ?>
     </h1>
