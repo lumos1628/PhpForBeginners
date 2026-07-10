@@ -13,7 +13,7 @@
                 [
                         'name' =>'Phanton lancer',
                         'Game style' => 'Late game, doge spells',
-                        'Player' => 'Ana',
+                        'player' => 'Ana',
                         'profileUrl' => "http://example.com"
                 ],
                 [
@@ -25,10 +25,21 @@
                 [
                         'name' => 'Spectre',
                         'Game style' => 'Late game, tanky',
-                        'player' => 'Humble Good',
+                        'player' => 'Ana',
                         'profileUrl' => "http://example.com"
                 ],
-        ]
+        ];
+
+        function filterByPlayer($books){
+            $filteredBooks = [];
+            foreach($books as $book){
+                if ($book['player'] === 'Ana'){
+                    $filteredBooks[] = $book;
+                }
+            }
+            return $filteredBooks;
+        }
+
     ?>
 
     <p>
@@ -38,15 +49,14 @@
     </p>
 
     <p>
-        <?php foreach ($books as $book): ?>
-            <li>
-                <a href="<?= $book['profileUrl'] ?>">
-                    <?= $book['name'] ?>
-                </a>
-            </li>
+        <?php foreach (filterByPlayer($books) as $book): ?>
+                <li>
+                    <a href="<?= $book['profileUrl'] ?>">
+                        <?= $book['name'] ?> (<?= $book['player'] ?>)
+                    </a>
+                </li>
         <?php endforeach; ?>
     </p>
-
 
 </body>
 </html>
