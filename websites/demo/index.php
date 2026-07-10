@@ -4,30 +4,28 @@
     <meta charset="UTF-8">
 
     <title>Demo</title>
-    <style>
-        body{
-            display: grid;
-            place-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: sans-serif;
-        }
-    </style>
 </head>
 <body>
+    <h1>Recommended Books</h1>
+
     <?php
-        $name = "Dark Matter";
-        $read = false;
-        if ($read) {
-            $message = "You have read $name ";
-        } else {
-            $message = "You have not read $name ";
-        }
+        $books = [
+                "Pantaleon y las visitadoras",
+                "Rango",
+                "Illia Topuria"
+        ]
     ?>
-    <h1>
-        <?php echo $message; ?>
-        <?= $message?>
-    </h1>
+    <ul>
+        <?php foreach ($books as $book){
+            echo "<li>$book</li>";
+        } ?>
+    </ul>
+
+    <ul>
+        <?php foreach ($books as $book):?>
+            <li><?=$book?></li>
+        <?php endforeach ?>
+    </ul>
 
 </body>
 </html>
