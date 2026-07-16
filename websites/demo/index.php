@@ -38,70 +38,83 @@
 <div class="contenedor">
 
     <div class="bloque">
-        <h2>Ejemplo 1: Calcular Vida</h2>
-
+        <h2>Lambda Function básica</h2>
         <?php
-        function calcularVida($fuerza) {
-            return $fuerza * 22;
-        }
+            $chatWheel = function() {
+                return "¡GG WP! ¡A la cueva a llorar!";
+            }; // IMPORTANTE: Lleva punto y coma al final porque es una asignación de variable.
 
-        $fuerzaDeWraithKing = 26;
-        $vidaTotal = calcularVida($fuerzaDeWraithKing);
-
-        echo "<p>Wraith King tiene <strong>$vidaTotal</strong> de vida base.</p>";
-        ?>
-    </div>
-
-    <div class="bloque">
-        <h2>Ejemplo 2: Evaluar Meta</h2>
-
-        <?php
-        function evaluarMeta($nombreHeroe, $winRate) {
-            if ($winRate >= 54.0) {
-                return "¡$nombreHeroe está rotísimo! Pick o ban obligatorio.";
-            } elseif ($winRate >= 49.0) {
-                return "$nombreHeroe está balanceado. Depende de tus manos.";
-            } else {
-                return "F por $nombreHeroe. No lo pickees ni de broma.";
-            }
-        }
-
-        echo "<p>" . evaluarMeta("Wraith King", 55.2) . "</p>";
-        echo "<p>" . evaluarMeta("Rubick", 47.5) . "</p>";
+            // Para usarla, llamamos a la variable como si fuera la función
+            echo $chatWheel();
+            // Imprime: ¡GG WP! ¡A la cueva a llorar!
         ?>
     </div>
     <div class="bloque">
-        <h2>Ejemplo 3: MVP</h2>
+        <h2>Closure</h2>
         <?php
-        // Le decimos que RECIBA un array y que nos DEVUELVA un string
-        function obtenerMvpDeLaPartida(array $listaHeroes) {
-            $mejorWinRate = 0;
-            $nombreMvp = "";
-
-            // Recorremos el array que entró como parámetro
-            foreach ($listaHeroes as $heroe) {
-                if ($heroe['winRate'] > $mejorWinRate) {
-                    $mejorWinRate = $heroe['winRate'];
-                    $nombreMvp = $heroe['name'];
-                }
-            }
-
-            return "El MVP de la partida es " . $nombreMvp . " con un win rate de " . $mejorWinRate . "%";
-        }
-
-        // Tu data (La que tenías en tu código original, pero mejorada)
-        $heroes = [
-                ['name' => 'Wraith King', 'winRate' => 55.2],
-                ['name' => 'Phantom Lancer', 'winRate' => 51.5],
-                ['name' => 'Spectre', 'winRate' => 53.0],
+            $multiplicadorRuna = 2;
+            $calcularGolpe = function($danioBase) use ($multiplicadorRuna) {
+                return "Hola " . $multiplicadorRuna * $danioBase;
+            };
+            echo $calcularGolpe(110);
+        ?>
+    </div>
+    <div class="bloque">
+        <h2></h2>
+        <?php
+        $tiendaSecretas = [
+                ['item' => 'Mango', 'oro' => 65],
+                ['item' => 'Hyperstone', 'oro' => 2000],
+                ['item' => 'Desolator', 'oro' => 3500],
+                ['item' => 'Clarity', 'oro' => 50],
         ];
 
-        // Le pasamos el array completo a la función
-        echo obtenerMvpDeLaPartida($heroes);
-        // Imprime: El MVP de la partida es Wraith King con un win rate de 55.2%
-        ?>
-    </div>
+        $miOroActual = 1500;
 
+        // Le pasamos la lista de items, y una lambda que decide qué puedo comprar
+        $itemsComprables = array_filter($tiendaSecretas, function($item) use ($miOroActual) {
+            return $item['oro'] <= $miOroActual;
+        });
+
+        // Si imprimes $itemsComprables, solo quedarán el Mango y la Clarity.
+
+        ?>
+        <ul>
+            <?php foreach ($itemsComprables as $item) : ?>
+                <li>
+                    <strong><?= $item['item'] ?></strong> - Cuesta <?= $item['oro'] ?> de oro.
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class="bloque">
+        <h2>True Sight (Callbacks en Filtros)</h2>
+        <?php
+        $tiendaSecretas = [
+                ['item' => 'Mango', 'oro' => 65],
+                ['item' => 'Hyperstone', 'oro' => 2000],
+                ['item' => 'Desolator', 'oro' => 3500],
+                ['item' => 'Clarity', 'oro' => 50],
+        ];
+
+        $miOroActual = 1500;
+
+        // Le pasamos la lista de items, y una lambda que decide qué puedo comprar
+        $itemsComprables = array_filter($tiendaSecretas, function($item) use ($miOroActual) {
+            return $item['oro'] <= $miOroActual;
+        });
+        ?>
+
+        <p>Tu oro actual: <strong><?= $miOroActual ?>💰</strong></p>
+
+        <ul>
+            <?php foreach ($itemsComprables as $item) : ?>
+                <li>
+                    <strong><?= $item['item'] ?></strong> - Cuesta <?= $item['oro'] ?> de oro.
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
 </div>
 
 </body>
